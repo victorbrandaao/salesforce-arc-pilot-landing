@@ -15,6 +15,10 @@ class LandingPage {
     this.setupPaymentMethods();
     this.setupAnalytics();
     this.setupIntersectionObserver();
+    this.initializeEnhancedFeatures();
+    this.initializeScrollAnimations();
+    this.initializeParallaxEffects();
+    this.initializeTypewriterEffect();
   }
 
   // API Helper Methods
@@ -481,6 +485,728 @@ class LandingPage {
     // Open contact form or redirect to calendar
     window.open("https://calendly.com/your-calendar", "_blank");
     this.trackEvent("contact_sales_clicked");
+  }
+
+  // Enhanced animations and interactions
+  initializeEnhancedFeatures() {
+    // Navbar scroll effect
+    const navbar = document.querySelector(".navbar");
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+
+      // Hide navbar on scroll down, show on scroll up
+      if (window.scrollY > lastScrollY && window.scrollY > 200) {
+        navbar.style.transform = "translateY(-100%)";
+      } else {
+        navbar.style.transform = "translateY(0)";
+      }
+      lastScrollY = window.scrollY;
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      });
+    });
+
+    // Enhanced pricing toggle
+    const billingToggle = document.getElementById("billing-toggle");
+    if (billingToggle) {
+      billingToggle.addEventListener("change", function () {
+        const monthlyPrices = document.querySelectorAll(".monthly");
+        const yearlyPrices = document.querySelectorAll(".yearly");
+
+        if (this.checked) {
+          monthlyPrices.forEach((el) => el.classList.add("hidden"));
+          yearlyPrices.forEach((el) => el.classList.remove("hidden"));
+        } else {
+          monthlyPrices.forEach((el) => el.classList.remove("hidden"));
+          yearlyPrices.forEach((el) => el.classList.add("hidden"));
+        }
+      });
+    }
+  }
+
+  initializeScrollAnimations() {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      observerOptions
+    );
+
+    // Observe elements for animation
+    document
+      .querySelectorAll(
+        ".feature-card, .pricing-card, .testimonial-card, .faq-item"
+      )
+      .forEach((el) => {
+        observer.observe(el);
+      });
+  }
+
+  initializeParallaxEffects() {
+    const heroImage = document.querySelector(".hero-image");
+
+    if (heroImage) {
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        heroImage.style.transform = `perspective(1000px) rotateY(-15deg) rotateX(10deg) translateY(${rate}px)`;
+      });
+    }
+  }
+
+  initializeTypewriterEffect() {
+    const highlightText = document.querySelector(".highlight");
+    if (highlightText) {
+      const text = highlightText.textContent;
+      const words = [
+        "Orgs Salesforce",
+        "Desenvolvimento",
+        "Produtividade",
+        "Workflow",
+      ];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeWriter() {
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          highlightText.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          highlightText.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 100 : 200;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          typeSpeed = 2000;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          typeSpeed = 500;
+        }
+
+        setTimeout(typeWriter, typeSpeed);
+      }
+
+      setTimeout(typeWriter, 1000);
+    }
+  }
+
+  // Enhanced language system
+  toggleLanguage() {
+    const newLang = window.currentLang === "pt" ? "en" : "pt";
+    this.setLanguage(newLang);
+
+    // Show notification
+    const message =
+      window.translations[newLang].notifications.languageChanged;
+    this.showNotification(message, "success");
+
+    // Track language change
+    this.trackEvent("language_changed", {
+      from: window.currentLang,
+      to: newLang,
+    });
+  }
+
+  setLanguage(lang) {
+    window.currentLang = lang;
+    localStorage.setItem("language", lang);
+
+    // Update HTML lang attribute
+    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en-US";
+
+    // Update flag and text
+    const flagElement = document.getElementById("current-flag");
+    const langElement = document.getElementById("current-lang");
+
+    if (lang === "pt") {
+      flagElement.textContent = "🇧🇷";
+      langElement.textContent = "PT";
+    } else {
+      flagElement.textContent = "🇺🇸";
+      langElement.textContent = "EN";
+    }
+
+    // Update all translated elements
+    this.updateTranslations();
+
+    // Update currency and pricing
+    this.updatePricing(lang);
+
+    // Update typewriter effect
+    this.updateTypewriterWords(lang);
+  }
+
+  updateTranslations() {
+    const translations = window.translations[window.currentLang];
+
+    // Update elements with data-i18n attribute
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const key = element.getAttribute("data-i18n");
+      const translation = this.getNestedTranslation(translations, key);
+
+      if (translation) {
+        element.textContent = translation;
+      }
+    });
+
+    // Update placeholders
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+      const key = element.getAttribute("data-i18n-placeholder");
+      const translation = this.getNestedTranslation(translations, key);
+
+      if (translation) {
+        element.placeholder = translation;
+      }
+    });
+
+    // Update meta tags
+    const titleMeta = document.querySelector('title[data-i18n]');
+    if (titleMeta) {
+        const key = titleMeta.getAttribute('data-i18n');
+        const translation = this.getNestedTranslation(translations, key);
+        if (translation) {
+            document.title = translation;
+        }
+    }
+    
+    const descMeta = document.querySelector('meta[name="description"][data-i18n]');
+    if (descMeta) {
+        const key = descMeta.getAttribute('data-i18n');
+        const translation = this.getNestedTranslation(translations, key);
+        if (translation) {
+            descMeta.setAttribute('content', translation);
+        }
+    }
+  }
+
+  getNestedTranslation(obj, key) {
+    return key.split(".").reduce((o, k) => (o || {})[k], obj);
+  }
+
+  updatePricing(lang) {
+    const currencyElements = document.querySelectorAll(
+      '[data-i18n="pricing.currency"]'
+    );
+    currencyElements.forEach((element) => {
+      element.textContent = lang === "pt" ? "R$" : "$";
+    });
+
+    // Update premium pricing for different currencies
+    const premiumPrices = document.querySelectorAll(
+      ".pricing-card.featured .amount"
+    );
+    premiumPrices.forEach((element) => {
+      if (element.classList.contains("monthly")) {
+        element.textContent = lang === "pt" ? "19" : "9";
+      } else if (element.classList.contains("yearly")) {
+        element.textContent = lang === "pt" ? "13" : "6";
+      }
+    });
+
+    // Update enterprise pricing
+    const enterprisePrice = document.querySelector(".pricing-card:last-child .amount");
+    if (enterprisePrice && !enterprisePrice.classList.contains("monthly") && !enterprisePrice.classList.contains("yearly")) {
+        enterprisePrice.textContent = lang === "pt" ? "199" : "99";
+    }
+  }
+
+  updateTypewriterWords(lang) {
+    const words = {
+      pt: ["Orgs Salesforce", "Desenvolvimento", "Produtividade", "Workflow"],
+      en: ["Salesforce Orgs", "Development", "Productivity", "Workflow"],
+    };
+
+    // Update typewriter words for the current language
+    if (window.typewriterWords) {
+      window.typewriterWords = words[lang];
+    }
+  }
+
+  // Enhanced typewriter effect with language support
+  initializeTypewriterEffect() {
+    const highlightText = document.getElementById("typewriter-text");
+    if (!highlightText) return;
+
+    const words = {
+      pt: ["Orgs Salesforce", "Desenvolvimento", "Produtividade", "Workflow"],
+      en: ["Salesforce Orgs", "Development", "Productivity", "Workflow"],
+    };
+
+    window.typewriterWords = words[window.currentLang];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+      const currentWord = window.typewriterWords[wordIndex];
+
+      if (isDeleting) {
+        highlightText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        highlightText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 100 : 200;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % window.typewriterWords.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(typeWriter, typeSpeed);
+    }
+
+    setTimeout(typeWriter, 1000);
+  }
+
+  // Enhanced notification system with translations
+  showNotification(message, type = "success", duration = 5000) {
+    const container = document.getElementById("notification-container");
+    if (!container) return;
+
+    const notification = document.createElement("div");
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-${
+              type === "success" ? "check-circle" : "exclamation-circle"
+            }"></i>
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" style="margin-left: auto; background: none; border: none; color: inherit; cursor: pointer; font-size: 1.25rem;">&times;</button>
+        </div>
+    `;
+
+    container.appendChild(notification);
+
+    // Trigger animation
+    setTimeout(() => notification.classList.add("show"), 100);
+
+    // Auto remove
+    setTimeout(() => {
+      notification.classList.remove("show");
+      setTimeout(() => notification.remove(), 300);
+    }, duration);
+  }
+
+  // Enhanced email subscription with language support
+  async subscribeEmail(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const emailInput = form.querySelector('input[type="email"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+      const errorMsg =
+        window.currentLang === "pt"
+          ? "Por favor, insira um email válido"
+          : "Please enter a valid email";
+      this.showNotification(errorMsg, "error");
+      return;
+    }
+
+    // Add loading state
+    submitBtn.classList.add("loading");
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(`${window.CONFIG.API_BASE_URL}/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          source: "landing_page",
+          language: window.currentLang,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer,
+          page: window.location.href,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        const successMsg =
+          window.translations[window.currentLang].notifications.subscribed;
+        this.showNotification(successMsg, "success");
+        emailInput.value = "";
+
+        // Track successful subscription
+        this.trackEvent("email_subscribed", {
+          email_domain: email.split("@")[1],
+          source: "landing_page",
+          language: window.currentLang,
+        });
+      } else {
+        const errorMsg =
+          data.message ||
+          window.translations[window.currentLang].notifications.error;
+        this.showNotification(errorMsg, "error");
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      const errorMsg =
+        window.currentLang === "pt"
+          ? "Erro de conexão. Tente novamente."
+          : "Connection error. Please try again.";
+      this.showNotification(errorMsg, "error");
+    } finally {
+      submitBtn.classList.remove("loading");
+      submitBtn.disabled = false;
+    }
+  }
+
+  // Enhanced functions with language support
+  async downloadApp(type = "free") {
+    try {
+      // Track download intent
+      this.trackEvent("download_started", { type, language: window.currentLang });
+
+      const response = await fetch(`${window.CONFIG.API_BASE_URL}/download-link`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type,
+          language: window.currentLang,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer,
+          page: window.location.href,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.downloadUrl) {
+        const successMsg =
+          window.translations[window.currentLang].notifications.downloadStarted;
+        this.showNotification(successMsg, "success");
+
+        // Create download link
+        const link = document.createElement("a");
+        link.href = data.downloadUrl;
+        link.download = `salesforce-arc-pilot-${type}.zip`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Track successful download
+        this.trackEvent("download_completed", { type, language: window.currentLang });
+      } else {
+        const errorMsg =
+          window.currentLang === "pt"
+            ? "Link de download temporariamente indisponível"
+            : "Download link temporarily unavailable";
+        this.showNotification(errorMsg, "error");
+      }
+    } catch (error) {
+      console.error("Download error:", error);
+      const errorMsg =
+        window.currentLang === "pt"
+          ? "Erro ao gerar link de download"
+          : "Error generating download link";
+      this.showNotification(errorMsg, "error");
+    }
+  }
+
+  // Enhanced analytics tracking with language
+  trackEvent(eventName, parameters = {}) {
+    // Always include language in parameters
+    parameters.language = window.currentLang;
+
+    if (window.CONFIG.ENVIRONMENT === "free") {
+      // Send to our backend
+      fetch(`${window.CONFIG.API_BASE_URL}/analytics`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          event: eventName,
+          parameters,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer,
+          page: window.location.href,
+        }),
+      }).catch((error) => console.log("Analytics error:", error));
+    }
+
+    // Send to Google Analytics if available
+    if (typeof gtag !== "undefined") {
+      gtag("event", eventName, parameters);
+    }
+  }
+
+  // Enhanced FAQ functionality with language support
+  toggleFaq(button) {
+    const faqItem = button.closest(".faq-item");
+    const isActive = faqItem.classList.contains("active");
+
+    // Close all FAQ items
+    document.querySelectorAll(".faq-item").forEach((item) => {
+      item.classList.remove("active");
+    });
+
+    // Open clicked item if it wasn't active
+    if (!isActive) {
+      faqItem.classList.add("active");
+
+      // Track FAQ interaction
+      this.trackEvent("faq_opened", {
+        question: button.querySelector("span").textContent,
+        language: window.currentLang,
+      });
+    }
+  }
+
+  // Enhanced modal functionality
+  showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+
+      // Track modal open
+      this.trackEvent("modal_opened", { modal_id: modalId });
+    }
+  }
+
+  closeModal() {
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach((modal) => {
+      modal.classList.remove("active");
+    });
+    document.body.style.overflow = "";
+  }
+
+  // Enhanced payment selection
+  selectPlan(plan) {
+    this.showModal("payment-modal");
+
+    // Track plan selection
+    this.trackEvent("plan_selected", { plan });
+
+    // Update modal content based on plan
+    const modalTitle = document.querySelector("#payment-modal h2");
+    if (modalTitle) {
+      modalTitle.textContent = `Assinar Plano ${
+        plan.charAt(0).toUpperCase() + plan.slice(1)
+      }`;
+    }
+  }
+
+  // Enhanced payment methods
+  showPaymentMethod(method) {
+    // Hide all payment methods
+    document.querySelectorAll(".payment-content").forEach((content) => {
+      content.classList.add("hidden");
+      content.classList.remove("active");
+    });
+
+    // Remove active class from all tabs
+    document.querySelectorAll(".tab-button").forEach((tab) => {
+      tab.classList.remove("active");
+    });
+
+    // Show selected method
+    const selectedContent = document.getElementById(`${method}-payment`);
+    const selectedTab = document.querySelector(
+      `[onclick="showPaymentMethod('${method}')"]`
+    );
+
+    if (selectedContent) {
+      selectedContent.classList.remove("hidden");
+      selectedContent.classList.add("active");
+    }
+
+    if (selectedTab) {
+      selectedTab.classList.add("active");
+    }
+
+    // Track payment method selection
+    this.trackEvent("payment_method_selected", { method });
+
+    // Generate PIX code if PIX is selected
+    if (method === "pix") {
+      this.generatePixCode();
+    }
+  }
+
+  // Enhanced PIX code generation
+  async generatePixCode() {
+    try {
+      const response = await fetch(
+        `${window.CONFIG.API_BASE_URL}/generate-pix`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            plan: "premium",
+            amount: 19.0,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.pixCode) {
+        const pixInput = document.getElementById("pix-code-input");
+        if (pixInput) {
+          pixInput.value = data.pixCode;
+        }
+
+        // Generate QR Code
+        const canvas = document.getElementById("qr-canvas");
+        if (canvas && typeof QRCode !== "undefined") {
+          QRCode.toCanvas(canvas, data.pixCode, {
+            width: 200,
+            margin: 1,
+            color: {
+              dark: "#000000",
+              light: "#FFFFFF",
+            },
+          });
+        }
+      }
+    } catch (error) {
+      console.error("PIX generation error:", error);
+    }
+  }
+
+  copyPixCode() {
+    const pixInput = document.getElementById("pix-code-input");
+    if (pixInput) {
+      pixInput.select();
+      document.execCommand("copy");
+      const message = window.translations[window.currentLang].notifications.pixCopied;
+      this.showNotification(message, "success");
+
+      this.trackEvent("pix_code_copied", { language: window.currentLang });
+    }
+  }
+
+  // Contact sales
+  contactSales() {
+    this.trackEvent("contact_sales_clicked", { language: window.currentLang });
+    const subject =
+      window.currentLang === "pt"
+        ? "Interesse no Plano Enterprise"
+        : "Interest in Enterprise Plan";
+    window.open(
+      `mailto:sales@salesforcearcpilot.com?subject=${encodeURIComponent(
+        subject
+      )}`,
+      "_blank"
+    );
+  }
+
+  // Show demo
+  showDemo() {
+    this.trackEvent("demo_requested");
+    const message = window.translations[window.currentLang].notifications.demoSoon;
+    this.showNotification(message, "success");
+  }
+
+  // Initialize everything when DOM loads
+  document.addEventListener("DOMContentLoaded", function () {
+    // Track page view
+    this.trackEvent("page_view", {
+      page: window.location.pathname,
+      referrer: document.referrer,
+    });
+
+    // Initialize tooltips and other interactive elements
+    this.initializeInteractiveElements();
+
+    // Preload critical images
+    this.preloadImages();
+  });
+
+  initializeInteractiveElements() {
+    // Add hover effects to buttons
+    document.querySelectorAll("button, .btn, .nav-link").forEach((element) => {
+      element.addEventListener("mouseenter", function () {
+        this.style.transform = "translateY(-2px)";
+      });
+
+      element.addEventListener("mouseleave", function () {
+        this.style.transform = "";
+      });
+    });
+
+    // Add click animations
+    document.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", function () {
+        this.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          this.style.transform = "";
+        }, 150);
+      });
+    });
+  }
+
+  preloadImages() {
+    const imageUrls = [
+      "images/app-screenshot.png",
+      "images/avatars/dev1.jpg",
+      "images/avatars/dev2.jpg",
+      "images/avatars/dev3.jpg",
+    ];
+
+    imageUrls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
   }
 }
 

@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Salesforce Arc Pilot - Gerenciador de Orgs Salesforce</title>
+    <title data-i18n="meta.title">
+      Salesforce Arc Pilot - Gerenciador de Orgs Salesforce
+    </title>
     <link rel="stylesheet" href="styles.css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -13,6 +15,7 @@
     <meta
       name="description"
       content="A extensão mais completa para desenvolvedores Salesforce. Organize, acesse e monitore suas orgs com facilidade."
+      data-i18n="meta.description"
     />
     <meta
       property="og:title"
@@ -24,9 +27,12 @@
     />
     <meta
       property="og:image"
-      content="https://your-domain.com/images/og-image.png"
+      content="https://victorbrandaao.github.io/salesforce-arc-pilot-landing/images/og-image.png"
     />
-    <meta property="og:url" content="https://your-domain.com" />
+    <meta
+      property="og:url"
+      content="https://victorbrandaao.github.io/salesforce-arc-pilot-landing"
+    />
 
     <!-- Analytics -->
     <script
@@ -51,11 +57,18 @@
         </div>
         <div class="nav-menu">
           <button class="lang-toggle" onclick="toggleLanguage()">
-            <span class="flag-icon">🇧🇷</span> PT
+            <span class="flag-icon" id="current-flag">🇧🇷</span>
+            <span id="current-lang">PT</span>
           </button>
-          <a href="#pricing" class="nav-link">Preços</a>
-          <a href="#features" class="nav-link">Recursos</a>
-          <button class="cta-button" onclick="scrollToDownload()">
+          <a href="#pricing" class="nav-link" data-i18n="nav.pricing">Preços</a>
+          <a href="#features" class="nav-link" data-i18n="nav.features"
+            >Recursos</a
+          >
+          <button
+            class="cta-button"
+            onclick="scrollToDownload()"
+            data-i18n="nav.download"
+          >
             Download Grátis
           </button>
         </div>
@@ -65,60 +78,73 @@
     <main>
       <!-- Hero Section -->
       <section class="hero">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            Gerencie suas <span class="highlight">Orgs Salesforce</span> como um
-            profissional
-          </h1>
-          <p class="hero-subtitle">
-            A extensão mais completa para desenvolvedores Salesforce. Organize,
-            acesse e monitore suas orgs com facilidade.
-          </p>
-          <div class="hero-buttons">
-            <button class="primary-button" onclick="downloadApp()">
-              <i class="fas fa-download"></i>
-              Baixar Grátis
-            </button>
-            <button class="secondary-button" onclick="showDemo()">
-              <i class="fas fa-play"></i>
-              Ver Demo
-            </button>
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1 class="hero-title">
+                <span data-i18n="hero.title.prefix">Gerencie suas</span>
+                <span class="highlight" id="typewriter-text"
+                  >Orgs Salesforce</span
+                >
+                <span data-i18n="hero.title.suffix">como um profissional</span>
+              </h1>
+              <p class="hero-subtitle" data-i18n="hero.subtitle">
+                A extensão mais completa para desenvolvedores Salesforce.
+                Organize, acesse e monitore suas orgs com facilidade.
+              </p>
+              <div class="hero-buttons">
+                <button class="primary-button" onclick="downloadApp()">
+                  <i class="fas fa-download"></i>
+                  <span data-i18n="hero.downloadBtn">Baixar Grátis</span>
+                </button>
+                <button class="secondary-button" onclick="showDemo()">
+                  <i class="fas fa-play"></i>
+                  <span data-i18n="hero.demoBtn">Ver Demo</span>
+                </button>
+              </div>
+              <div class="hero-stats">
+                <div class="stat">
+                  <span class="stat-number">15k+</span>
+                  <span class="stat-label" data-i18n="hero.stats.downloads"
+                    >Downloads</span
+                  >
+                </div>
+                <div class="stat">
+                  <span class="stat-number">800+</span>
+                  <span class="stat-label" data-i18n="hero.stats.developers"
+                    >Desenvolvedores</span
+                  >
+                </div>
+                <div class="stat">
+                  <span class="stat-number">4.9★</span>
+                  <span class="stat-label" data-i18n="hero.stats.rating"
+                    >Avaliação</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="hero-visual">
+              <img
+                src="https://via.placeholder.com/600x400/667eea/ffffff?text=Salesforce+Arc+Pilot"
+                alt="Salesforce Arc Pilot Interface"
+                class="hero-image"
+              />
+            </div>
           </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-number">10k+</span>
-              <span class="stat-label">Downloads</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number">500+</span>
-              <span class="stat-label">Desenvolvedores</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number">4.9★</span>
-              <span class="stat-label">Avaliação</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <img
-            src="images/app-screenshot.png"
-            alt="Salesforce Arc Pilot Interface"
-            class="hero-image"
-          />
         </div>
       </section>
 
       <!-- Features Section -->
       <section id="features" class="features">
         <div class="container">
-          <h2>Recursos que fazem a diferença</h2>
+          <h2 data-i18n="features.title">Recursos que fazem a diferença</h2>
           <div class="features-grid">
             <div class="feature-card">
               <div class="feature-icon">
                 <i class="fas fa-search"></i>
               </div>
-              <h3>Busca Inteligente</h3>
-              <p>
+              <h3 data-i18n="features.search.title">Busca Inteligente</h3>
+              <p data-i18n="features.search.description">
                 Encontre qualquer org instantaneamente com nossa busca avançada
               </p>
             </div>
@@ -126,24 +152,55 @@
               <div class="feature-icon">
                 <i class="fas fa-chart-bar"></i>
               </div>
-              <h3>Analytics Dashboard</h3>
-              <p>Monitore uso, performance e estatísticas das suas orgs</p>
-              <span class="premium-badge">PREMIUM</span>
+              <h3 data-i18n="features.analytics.title">Analytics Dashboard</h3>
+              <p data-i18n="features.analytics.description">
+                Monitore uso, performance e estatísticas das suas orgs
+              </p>
+              <span class="premium-badge" data-i18n="features.premium"
+                >PREMIUM</span
+              >
             </div>
             <div class="feature-card">
               <div class="feature-icon">
                 <i class="fas fa-moon"></i>
               </div>
-              <h3>Dark Mode</h3>
-              <p>Interface moderna com suporte a temas escuros</p>
+              <h3 data-i18n="features.darkMode.title">Dark Mode</h3>
+              <p data-i18n="features.darkMode.description">
+                Interface moderna com suporte a temas escuros
+              </p>
             </div>
             <div class="feature-card premium">
               <div class="feature-icon">
                 <i class="fas fa-cloud"></i>
               </div>
-              <h3>Sync na Nuvem</h3>
-              <p>Sincronize suas configurações entre todos os dispositivos</p>
-              <span class="premium-badge">PREMIUM</span>
+              <h3 data-i18n="features.sync.title">Sync na Nuvem</h3>
+              <p data-i18n="features.sync.description">
+                Sincronize suas configurações entre todos os dispositivos
+              </p>
+              <span class="premium-badge" data-i18n="features.premium"
+                >PREMIUM</span
+              >
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-tags"></i>
+              </div>
+              <h3 data-i18n="features.organize.title">Organização Avançada</h3>
+              <p data-i18n="features.organize.description">
+                Categorize suas orgs com tags e grupos personalizados
+              </p>
+            </div>
+            <div class="feature-card premium">
+              <div class="feature-icon">
+                <i class="fas fa-history"></i>
+              </div>
+              <h3 data-i18n="features.history.title">Histórico de Acesso</h3>
+              <p data-i18n="features.history.description">
+                Veja quando e como você acessou cada org
+              </p>
+              <span class="premium-badge" data-i18n="features.premium"
+                >PREMIUM</span
+              >
             </div>
           </div>
         </div>
@@ -152,79 +209,346 @@
       <!-- Pricing Section -->
       <section id="pricing" class="pricing">
         <div class="container">
-          <h2>Escolha seu plano</h2>
+          <h2 data-i18n="pricing.title">Escolha seu plano</h2>
           <div class="pricing-toggle">
-            <span class="toggle-label">Mensal</span>
+            <span class="toggle-label" data-i18n="pricing.monthly">Mensal</span>
             <label class="toggle-switch">
               <input type="checkbox" id="billing-toggle" />
               <span class="slider"></span>
             </label>
-            <span class="toggle-label"
-              >Anual <span class="discount">-30%</span></span
-            >
+            <span class="toggle-label">
+              <span data-i18n="pricing.yearly">Anual</span>
+              <span class="discount" data-i18n="pricing.discount">-30%</span>
+            </span>
           </div>
 
           <div class="pricing-cards">
             <div class="pricing-card">
-              <h3>Grátis</h3>
+              <h3 data-i18n="pricing.free.title">Grátis</h3>
               <div class="price">
-                <span class="currency">R$</span>
+                <span class="currency" data-i18n="pricing.currency">R$</span>
                 <span class="amount">0</span>
-                <span class="period">/sempre</span>
+                <span class="period" data-i18n="pricing.free.period"
+                  >/sempre</span
+                >
               </div>
               <ul class="features-list">
-                <li><i class="fas fa-check"></i> Até 5 orgs</li>
-                <li><i class="fas fa-check"></i> Busca básica</li>
-                <li><i class="fas fa-check"></i> Tema claro</li>
-                <li><i class="fas fa-check"></i> Suporte por email</li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.free.features.orgs">Até 5 orgs</span>
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.free.features.search"
+                    >Busca básica</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.free.features.theme"
+                    >Tema claro</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.free.features.support"
+                    >Suporte por email</span
+                  >
+                </li>
               </ul>
-              <button class="plan-button" onclick="downloadApp()">
+              <button
+                class="plan-button"
+                onclick="downloadApp()"
+                data-i18n="pricing.free.button"
+              >
                 Começar Grátis
               </button>
             </div>
 
             <div class="pricing-card featured">
-              <div class="popular-badge">Mais Popular</div>
-              <h3>Premium</h3>
+              <div class="popular-badge" data-i18n="pricing.premium.badge">
+                Mais Popular
+              </div>
+              <h3 data-i18n="pricing.premium.title">Premium</h3>
               <div class="price">
-                <span class="currency">R$</span>
+                <span class="currency" data-i18n="pricing.currency">R$</span>
                 <span class="amount monthly">19</span>
                 <span class="amount yearly hidden">13</span>
-                <span class="period">/mês</span>
+                <span class="period" data-i18n="pricing.premium.period"
+                  >/mês</span
+                >
               </div>
               <ul class="features-list">
-                <li><i class="fas fa-check"></i> Orgs ilimitadas</li>
-                <li><i class="fas fa-check"></i> Analytics dashboard</li>
-                <li><i class="fas fa-check"></i> Dark mode + temas</li>
-                <li><i class="fas fa-check"></i> Sync na nuvem</li>
-                <li><i class="fas fa-check"></i> Backup automático</li>
-                <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.premium.features.orgs"
+                    >Orgs ilimitadas</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.premium.features.analytics"
+                    >Analytics dashboard</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.premium.features.themes"
+                    >Dark mode + temas</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.premium.features.sync"
+                    >Sync na nuvem</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.premium.features.backup"
+                    >Backup automático</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.premium.features.support"
+                    >Suporte prioritário</span
+                  >
+                </li>
               </ul>
               <button
                 class="plan-button premium"
                 onclick="selectPlan('premium')"
+                data-i18n="pricing.premium.button"
               >
                 Assinar Premium
               </button>
             </div>
 
             <div class="pricing-card">
-              <h3>Enterprise</h3>
+              <h3 data-i18n="pricing.enterprise.title">Enterprise</h3>
               <div class="price">
-                <span class="currency">R$</span>
+                <span class="currency" data-i18n="pricing.currency">R$</span>
                 <span class="amount">199</span>
-                <span class="period">/mês</span>
+                <span class="period" data-i18n="pricing.enterprise.period"
+                  >/mês</span
+                >
               </div>
               <ul class="features-list">
-                <li><i class="fas fa-check"></i> Tudo do Premium</li>
-                <li><i class="fas fa-check"></i> White-label</li>
-                <li><i class="fas fa-check"></i> API access</li>
-                <li><i class="fas fa-check"></i> Custom integrations</li>
-                <li><i class="fas fa-check"></i> Suporte dedicado</li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.enterprise.features.all"
+                    >Tudo do Premium</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.enterprise.features.whiteLabel"
+                    >White-label</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.enterprise.features.api"
+                    >API access</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.enterprise.features.integrations"
+                    >Custom integrations</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-check"></i>
+                  <span data-i18n="pricing.enterprise.features.support"
+                    >Suporte dedicado</span
+                  >
+                </li>
               </ul>
-              <button class="plan-button" onclick="contactSales()">
+              <button
+                class="plan-button"
+                onclick="contactSales()"
+                data-i18n="pricing.enterprise.button"
+              >
                 Falar com Vendas
               </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Email Capture Section -->
+      <section class="email-capture">
+        <div class="container">
+          <div class="capture-content">
+            <h2>
+              <span>🚀</span>
+              <span data-i18n="email.title"
+                >Seja o primeiro a saber de novidades</span
+              >
+            </h2>
+            <p data-i18n="email.subtitle">
+              Receba updates, dicas e recursos exclusivos para desenvolvedores
+              Salesforce
+            </p>
+            <form class="email-form" onsubmit="subscribeEmail(event)">
+              <input
+                type="email"
+                placeholder="Seu melhor email"
+                data-i18n-placeholder="email.placeholder"
+                required
+                id="email-input"
+              />
+              <button type="submit" class="subscribe-btn">
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="email.button">Quero Receber</span>
+              </button>
+            </form>
+            <p class="privacy-note">
+              <i class="fas fa-lock"></i>
+              <span data-i18n="email.privacy"
+                >Seus dados estão seguros. Sem spam, apenas conteúdo
+                relevante.</span
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="testimonials">
+        <div class="container">
+          <h2 data-i18n="testimonials.title">
+            O que desenvolvedores estão dizendo
+          </h2>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="stars">★★★★★</div>
+              <p data-i18n="testimonials.testimonial1.quote">
+                "Revolucionou meu workflow diário. Não consigo mais trabalhar
+                sem!"
+              </p>
+              <div class="author">
+                <img
+                  src="https://via.placeholder.com/50x50/667eea/ffffff?text=JS"
+                  alt="João Silva"
+                />
+                <div>
+                  <strong data-i18n="testimonials.testimonial1.name"
+                    >João Silva</strong
+                  >
+                  <span data-i18n="testimonials.testimonial1.role"
+                    >Senior Salesforce Developer</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="stars">★★★★★</div>
+              <p data-i18n="testimonials.testimonial2.quote">
+                "A busca inteligente economiza horas do meu tempo toda semana."
+              </p>
+              <div class="author">
+                <img
+                  src="https://via.placeholder.com/50x50/764ba2/ffffff?text=MS"
+                  alt="Maria Santos"
+                />
+                <div>
+                  <strong data-i18n="testimonials.testimonial2.name"
+                    >Maria Santos</strong
+                  >
+                  <span data-i18n="testimonials.testimonial2.role"
+                    >Salesforce Architect</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="stars">★★★★★</div>
+              <p data-i18n="testimonials.testimonial3.quote">
+                "Interface linda e funcionalidades que realmente fazem
+                diferença."
+              </p>
+              <div class="author">
+                <img
+                  src="https://via.placeholder.com/50x50/ff6b35/ffffff?text=CO"
+                  alt="Carlos Oliveira"
+                />
+                <div>
+                  <strong data-i18n="testimonials.testimonial3.name"
+                    >Carlos Oliveira</strong
+                  >
+                  <span data-i18n="testimonials.testimonial3.role"
+                    >Lead Developer</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq">
+        <div class="container">
+          <h2 data-i18n="faq.title">Perguntas Frequentes</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-i18n="faq.install.question"
+                  >Como instalar a extensão?</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.install.answer">
+                  Baixe o arquivo ZIP, extraia e carregue no Chrome via
+                  "Gerenciar extensões" > "Carregar sem compactação".
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-i18n="faq.sandbox.question"
+                  >Funciona com Sandboxes?</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.sandbox.answer">
+                  Sim! Funciona com Production, Sandbox, Developer Edition e
+                  Trailhead Playground.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-i18n="faq.security.question"
+                  >Meus dados ficam seguros?</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.security.answer">
+                  Todos os dados ficam no seu navegador. Nenhuma informação
+                  sensível é enviada para nossos servidores.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-i18n="faq.cancel.question"
+                  >Como cancelar a assinatura?</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.cancel.answer">
+                  Você pode cancelar a qualquer momento. Sem taxa de
+                  cancelamento ou burocracia.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -232,10 +556,10 @@
     </main>
 
     <!-- Payment Modal -->
-    <div id="payment-modal" class="modal hidden">
+    <div id="payment-modal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Finalizar Compra</h2>
+        <h2 data-i18n="payment.title">Finalizar Compra</h2>
         <div class="payment-methods">
           <div class="payment-tabs">
             <button
@@ -245,7 +569,8 @@
               <i class="fas fa-qrcode"></i> PIX
             </button>
             <button class="tab-button" onclick="showPaymentMethod('card')">
-              <i class="fas fa-credit-card"></i> Cartão
+              <i class="fas fa-credit-card"></i>
+              <span data-i18n="payment.card">Cartão</span>
             </button>
             <button class="tab-button" onclick="showPaymentMethod('paypal')">
               <i class="fab fa-paypal"></i> PayPal
@@ -257,17 +582,25 @@
               <div class="qr-code">
                 <canvas id="qr-canvas"></canvas>
               </div>
-              <p>Escaneie o QR Code ou copie o código PIX</p>
+              <p data-i18n="payment.pix.instruction">
+                Escaneie o QR Code ou copie o código PIX
+              </p>
               <div class="pix-code">
                 <input type="text" id="pix-code-input" readonly />
-                <button onclick="copyPixCode()">Copiar</button>
+                <button onclick="copyPixCode()" data-i18n="payment.pix.copy">
+                  Copiar
+                </button>
               </div>
             </div>
           </div>
 
           <div id="card-payment" class="payment-content hidden">
             <div id="stripe-elements"></div>
-            <button id="submit-payment" class="payment-submit">
+            <button
+              id="submit-payment"
+              class="payment-submit"
+              data-i18n="payment.card.submit"
+            >
               Finalizar Pagamento
             </button>
           </div>
@@ -279,141 +612,6 @@
       </div>
     </div>
 
-    <!-- Email Capture Section -->
-    <section class="email-capture">
-      <div class="container">
-        <div class="capture-content">
-          <h2>🚀 Seja o primeiro a saber de novidades</h2>
-          <p>
-            Receba updates, dicas e recursos exclusivos para desenvolvedores
-            Salesforce
-          </p>
-          <form class="email-form" onsubmit="subscribeEmail(event)">
-            <input
-              type="email"
-              placeholder="Seu melhor email"
-              required
-              id="email-input"
-            />
-            <button type="submit" class="subscribe-btn">
-              <i class="fas fa-paper-plane"></i>
-              Quero Receber
-            </button>
-          </form>
-          <p class="privacy-note">
-            <i class="fas fa-lock"></i>
-            Seus dados estão seguros. Sem spam, apenas conteúdo relevante.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-      <div class="container">
-        <h2>O que desenvolvedores estão dizendo</h2>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p>
-              "Revolucionou meu workflow diário. Não consigo mais trabalhar
-              sem!"
-            </p>
-            <div class="author">
-              <img src="images/avatars/dev1.jpg" alt="João Silva" />
-              <div>
-                <strong>João Silva</strong>
-                <span>Senior Salesforce Developer</span>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p>
-              "A busca inteligente economiza horas do meu tempo toda semana."
-            </p>
-            <div class="author">
-              <img src="images/avatars/dev2.jpg" alt="Maria Santos" />
-              <div>
-                <strong>Maria Santos</strong>
-                <span>Salesforce Architect</span>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p>
-              "Interface linda e funcionalidades que realmente fazem diferença."
-            </p>
-            <div class="author">
-              <img src="images/avatars/dev3.jpg" alt="Carlos Oliveira" />
-              <div>
-                <strong>Carlos Oliveira</strong>
-                <span>Lead Developer</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
-      <div class="container">
-        <h2>Perguntas Frequentes</h2>
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Como instalar a extensão?</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-              <p>
-                Baixe o arquivo ZIP, extraia e carregue no Chrome via "Gerenciar
-                extensões" > "Carregar sem compactação".
-              </p>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Funciona com Sandboxes?</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-              <p>
-                Sim! Funciona com Production, Sandbox, Developer Edition e
-                Trailhead Playground.
-              </p>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Meus dados ficam seguros?</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-              <p>
-                Todos os dados ficam no seu navegador. Nenhuma informação
-                sensível é enviada para nossos servidores.
-              </p>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Como cancelar a assinatura?</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-              <p>
-                Você pode cancelar a qualquer momento. Sem taxa de cancelamento
-                ou burocracia.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
@@ -423,7 +621,9 @@
               <i class="fas fa-rocket"></i>
               <span>Salesforce Arc Pilot</span>
             </div>
-            <p>A ferramenta definitiva para desenvolvedores Salesforce</p>
+            <p data-i18n="footer.description">
+              A ferramenta definitiva para desenvolvedores Salesforce
+            </p>
             <div class="social-links">
               <a href="#" aria-label="YouTube"
                 ><i class="fab fa-youtube"></i
@@ -439,30 +639,48 @@
           </div>
           <div class="footer-links">
             <div class="link-group">
-              <h4>Produto</h4>
-              <a href="#features">Recursos</a>
-              <a href="#pricing">Preços</a>
-              <a href="/changelog">Changelog</a>
-              <a href="/roadmap">Roadmap</a>
+              <h4 data-i18n="footer.product.title">Produto</h4>
+              <a href="#features" data-i18n="footer.product.features"
+                >Recursos</a
+              >
+              <a href="#pricing" data-i18n="footer.product.pricing">Preços</a>
+              <a href="/changelog" data-i18n="footer.product.changelog"
+                >Changelog</a
+              >
+              <a href="/roadmap" data-i18n="footer.product.roadmap">Roadmap</a>
             </div>
             <div class="link-group">
-              <h4>Suporte</h4>
-              <a href="/docs">Documentação</a>
-              <a href="/tutorials">Tutoriais</a>
-              <a href="mailto:support@salesforcearcpilot.com">Contato</a>
-              <a href="/status">Status</a>
+              <h4 data-i18n="footer.support.title">Suporte</h4>
+              <a href="/docs" data-i18n="footer.support.docs">Documentação</a>
+              <a href="/tutorials" data-i18n="footer.support.tutorials"
+                >Tutoriais</a
+              >
+              <a
+                href="mailto:support@salesforcearcpilot.com"
+                data-i18n="footer.support.contact"
+                >Contato</a
+              >
+              <a href="/status" data-i18n="footer.support.status">Status</a>
             </div>
             <div class="link-group">
-              <h4>Legal</h4>
-              <a href="/privacy">Privacidade</a>
-              <a href="/terms">Termos</a>
-              <a href="/refund">Reembolso</a>
+              <h4 data-i18n="footer.legal.title">Legal</h4>
+              <a href="/privacy" data-i18n="footer.legal.privacy"
+                >Privacidade</a
+              >
+              <a href="/terms" data-i18n="footer.legal.terms">Termos</a>
+              <a href="/refund" data-i18n="footer.legal.refund">Reembolso</a>
             </div>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Salesforce Arc Pilot. Todos os direitos reservados.</p>
-          <p>Feito com ❤️ no Brasil</p>
+          <p>
+            &copy; 2024 Salesforce Arc Pilot.
+            <span data-i18n="footer.rights">Todos os direitos reservados.</span>
+          </p>
+          <p>
+            <span data-i18n="footer.madeWith">Feito com</span> ❤️
+            <span data-i18n="footer.location">no Brasil</span>
+          </p>
         </div>
       </div>
     </footer>
@@ -481,6 +699,8 @@
       };
     </script>
 
+    <!-- Translation Data -->
+    <script src="translations.js"></script>
     <!-- External Scripts -->
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=BRL"></script>
