@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Arc Pilot - Gerenciador de Orgs Salesforce</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- GitHub Pages / Vercel Meta Tags -->
+    <meta
+      name="description"
+      content="A extensão mais completa para desenvolvedores Salesforce. Organize, acesse e monitore suas orgs com facilidade."
+    />
+    <meta
+      property="og:title"
+      content="Salesforce Arc Pilot - Gerenciador de Orgs Salesforce"
+    />
+    <meta
+      property="og:description"
+      content="A extensão mais completa para desenvolvedores Salesforce"
+    />
+    <meta
+      property="og:image"
+      content="https://your-domain.com/images/og-image.png"
+    />
+    <meta property="og:url" content="https://your-domain.com" />
+
+    <!-- Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GA_MEASUREMENT_ID");
+    </script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <i class="fas fa-rocket"></i>
+          <span>Salesforce Arc Pilot</span>
+        </div>
+        <div class="nav-menu">
+          <button class="lang-toggle" onclick="toggleLanguage()">
+            <span class="flag-icon">🇧🇷</span> PT
+          </button>
+          <a href="#pricing" class="nav-link">Preços</a>
+          <a href="#features" class="nav-link">Recursos</a>
+          <button class="cta-button" onclick="scrollToDownload()">
+            Download Grátis
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Gerencie suas <span class="highlight">Orgs Salesforce</span> como um
+            profissional
+          </h1>
+          <p class="hero-subtitle">
+            A extensão mais completa para desenvolvedores Salesforce. Organize,
+            acesse e monitore suas orgs com facilidade.
+          </p>
+          <div class="hero-buttons">
+            <button class="primary-button" onclick="downloadApp()">
+              <i class="fas fa-download"></i>
+              Baixar Grátis
+            </button>
+            <button class="secondary-button" onclick="showDemo()">
+              <i class="fas fa-play"></i>
+              Ver Demo
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number">10k+</span>
+              <span class="stat-label">Downloads</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Desenvolvedores</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">4.9★</span>
+              <span class="stat-label">Avaliação</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img
+            src="images/app-screenshot.png"
+            alt="Salesforce Arc Pilot Interface"
+            class="hero-image"
+          />
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="features">
+        <div class="container">
+          <h2>Recursos que fazem a diferença</h2>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-search"></i>
+              </div>
+              <h3>Busca Inteligente</h3>
+              <p>
+                Encontre qualquer org instantaneamente com nossa busca avançada
+              </p>
+            </div>
+            <div class="feature-card premium">
+              <div class="feature-icon">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+              <h3>Analytics Dashboard</h3>
+              <p>Monitore uso, performance e estatísticas das suas orgs</p>
+              <span class="premium-badge">PREMIUM</span>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-moon"></i>
+              </div>
+              <h3>Dark Mode</h3>
+              <p>Interface moderna com suporte a temas escuros</p>
+            </div>
+            <div class="feature-card premium">
+              <div class="feature-icon">
+                <i class="fas fa-cloud"></i>
+              </div>
+              <h3>Sync na Nuvem</h3>
+              <p>Sincronize suas configurações entre todos os dispositivos</p>
+              <span class="premium-badge">PREMIUM</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Section -->
+      <section id="pricing" class="pricing">
+        <div class="container">
+          <h2>Escolha seu plano</h2>
+          <div class="pricing-toggle">
+            <span class="toggle-label">Mensal</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="billing-toggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label"
+              >Anual <span class="discount">-30%</span></span
+            >
+          </div>
+
+          <div class="pricing-cards">
+            <div class="pricing-card">
+              <h3>Grátis</h3>
+              <div class="price">
+                <span class="currency">R$</span>
+                <span class="amount">0</span>
+                <span class="period">/sempre</span>
+              </div>
+              <ul class="features-list">
+                <li><i class="fas fa-check"></i> Até 5 orgs</li>
+                <li><i class="fas fa-check"></i> Busca básica</li>
+                <li><i class="fas fa-check"></i> Tema claro</li>
+                <li><i class="fas fa-check"></i> Suporte por email</li>
+              </ul>
+              <button class="plan-button" onclick="downloadApp()">
+                Começar Grátis
+              </button>
+            </div>
+
+            <div class="pricing-card featured">
+              <div class="popular-badge">Mais Popular</div>
+              <h3>Premium</h3>
+              <div class="price">
+                <span class="currency">R$</span>
+                <span class="amount monthly">19</span>
+                <span class="amount yearly hidden">13</span>
+                <span class="period">/mês</span>
+              </div>
+              <ul class="features-list">
+                <li><i class="fas fa-check"></i> Orgs ilimitadas</li>
+                <li><i class="fas fa-check"></i> Analytics dashboard</li>
+                <li><i class="fas fa-check"></i> Dark mode + temas</li>
+                <li><i class="fas fa-check"></i> Sync na nuvem</li>
+                <li><i class="fas fa-check"></i> Backup automático</li>
+                <li><i class="fas fa-check"></i> Suporte prioritário</li>
+              </ul>
+              <button
+                class="plan-button premium"
+                onclick="selectPlan('premium')"
+              >
+                Assinar Premium
+              </button>
+            </div>
+
+            <div class="pricing-card">
+              <h3>Enterprise</h3>
+              <div class="price">
+                <span class="currency">R$</span>
+                <span class="amount">199</span>
+                <span class="period">/mês</span>
+              </div>
+              <ul class="features-list">
+                <li><i class="fas fa-check"></i> Tudo do Premium</li>
+                <li><i class="fas fa-check"></i> White-label</li>
+                <li><i class="fas fa-check"></i> API access</li>
+                <li><i class="fas fa-check"></i> Custom integrations</li>
+                <li><i class="fas fa-check"></i> Suporte dedicado</li>
+              </ul>
+              <button class="plan-button" onclick="contactSales()">
+                Falar com Vendas
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Finalizar Compra</h2>
+        <div class="payment-methods">
+          <div class="payment-tabs">
+            <button
+              class="tab-button active"
+              onclick="showPaymentMethod('pix')"
+            >
+              <i class="fas fa-qrcode"></i> PIX
+            </button>
+            <button class="tab-button" onclick="showPaymentMethod('card')">
+              <i class="fas fa-credit-card"></i> Cartão
+            </button>
+            <button class="tab-button" onclick="showPaymentMethod('paypal')">
+              <i class="fab fa-paypal"></i> PayPal
+            </button>
+          </div>
+
+          <div id="pix-payment" class="payment-content active">
+            <div class="pix-container">
+              <div class="qr-code">
+                <canvas id="qr-canvas"></canvas>
+              </div>
+              <p>Escaneie o QR Code ou copie o código PIX</p>
+              <div class="pix-code">
+                <input type="text" id="pix-code-input" readonly />
+                <button onclick="copyPixCode()">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="card-payment" class="payment-content hidden">
+            <div id="stripe-elements"></div>
+            <button id="submit-payment" class="payment-submit">
+              Finalizar Pagamento
+            </button>
+          </div>
+
+          <div id="paypal-payment" class="payment-content hidden">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Capture Section -->
+    <section class="email-capture">
+      <div class="container">
+        <div class="capture-content">
+          <h2>🚀 Seja o primeiro a saber de novidades</h2>
+          <p>
+            Receba updates, dicas e recursos exclusivos para desenvolvedores
+            Salesforce
+          </p>
+          <form class="email-form" onsubmit="subscribeEmail(event)">
+            <input
+              type="email"
+              placeholder="Seu melhor email"
+              required
+              id="email-input"
+            />
+            <button type="submit" class="subscribe-btn">
+              <i class="fas fa-paper-plane"></i>
+              Quero Receber
+            </button>
+          </form>
+          <p class="privacy-note">
+            <i class="fas fa-lock"></i>
+            Seus dados estão seguros. Sem spam, apenas conteúdo relevante.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="container">
+        <h2>O que desenvolvedores estão dizendo</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Revolucionou meu workflow diário. Não consigo mais trabalhar
+              sem!"
+            </p>
+            <div class="author">
+              <img src="images/avatars/dev1.jpg" alt="João Silva" />
+              <div>
+                <strong>João Silva</strong>
+                <span>Senior Salesforce Developer</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>
+              "A busca inteligente economiza horas do meu tempo toda semana."
+            </p>
+            <div class="author">
+              <img src="images/avatars/dev2.jpg" alt="Maria Santos" />
+              <div>
+                <strong>Maria Santos</strong>
+                <span>Salesforce Architect</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Interface linda e funcionalidades que realmente fazem diferença."
+            </p>
+            <div class="author">
+              <img src="images/avatars/dev3.jpg" alt="Carlos Oliveira" />
+              <div>
+                <strong>Carlos Oliveira</strong>
+                <span>Lead Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+      <div class="container">
+        <h2>Perguntas Frequentes</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Como instalar a extensão?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Baixe o arquivo ZIP, extraia e carregue no Chrome via "Gerenciar
+                extensões" > "Carregar sem compactação".
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Funciona com Sandboxes?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Sim! Funciona com Production, Sandbox, Developer Edition e
+                Trailhead Playground.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Meus dados ficam seguros?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Todos os dados ficam no seu navegador. Nenhuma informação
+                sensível é enviada para nossos servidores.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Como cancelar a assinatura?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Você pode cancelar a qualquer momento. Sem taxa de cancelamento
+                ou burocracia.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <i class="fas fa-rocket"></i>
+              <span>Salesforce Arc Pilot</span>
+            </div>
+            <p>A ferramenta definitiva para desenvolvedores Salesforce</p>
+            <div class="social-links">
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" aria-label="Discord"
+                ><i class="fab fa-discord"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <div class="link-group">
+              <h4>Produto</h4>
+              <a href="#features">Recursos</a>
+              <a href="#pricing">Preços</a>
+              <a href="/changelog">Changelog</a>
+              <a href="/roadmap">Roadmap</a>
+            </div>
+            <div class="link-group">
+              <h4>Suporte</h4>
+              <a href="/docs">Documentação</a>
+              <a href="/tutorials">Tutoriais</a>
+              <a href="mailto:support@salesforcearcpilot.com">Contato</a>
+              <a href="/status">Status</a>
+            </div>
+            <div class="link-group">
+              <h4>Legal</h4>
+              <a href="/privacy">Privacidade</a>
+              <a href="/terms">Termos</a>
+              <a href="/refund">Reembolso</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Salesforce Arc Pilot. Todos os direitos reservados.</p>
+          <p>Feito com ❤️ no Brasil</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Success/Error Notifications -->
+    <div id="notification-container"></div>
+
+    <!-- Configuration for API endpoints -->
+    <script>
+      window.CONFIG = {
+        API_BASE_URL:
+          "https://salesforcearcpilot-production.up.railway.app/api",
+        STRIPE_PUBLIC_KEY: "pk_test_disabled",
+        PAYPAL_CLIENT_ID: "disabled",
+        ENVIRONMENT: "free",
+      };
+    </script>
+
+    <!-- External Scripts -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=BRL"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
