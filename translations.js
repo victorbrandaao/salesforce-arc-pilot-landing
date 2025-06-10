@@ -65,7 +65,7 @@ window.translations = {
         title: "Grátis",
         period: "/sempre",
         features: {
-          orgs: "Até 5 orgs",
+          orgs: "Até 2 orgs",
           search: "Busca básica",
           theme: "Tema claro",
           support: "Suporte por email",
@@ -261,7 +261,7 @@ window.translations = {
         title: "Free",
         period: "/forever",
         features: {
-          orgs: "Up to 5 orgs",
+          orgs: "Up to 2 orgs",
           search: "Basic search",
           theme: "Light theme",
           support: "Email support",
